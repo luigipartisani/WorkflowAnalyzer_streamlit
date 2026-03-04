@@ -515,15 +515,21 @@ with tab_edges:
         cond = f' · condizione: `{e["runtimeCondition"]}`' if e.get("runtimeCondition") else ""
         from_title = node_map.get(e["from"], {}).get("title", "")[:35]
         to_title   = node_map.get(e["to"],   {}).get("title", "")[:35]
+        mono = "font-family:'JetBrains Mono',monospace"
+        runtime_span = (
+            '<span style="font-size:9px;color:#c8943a;border:1px solid #5a3a10;'
+            'border-radius:4px;padding:1px 6px;">runtime</span>'
+            if e.get("isRuntimeBranch") else ""
+        )
         st.markdown(
             f'<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;'
             f'background:#0d1117;border:1px solid #1e2a3a;border-radius:8px;margin-bottom:5px;">'
             f'<span style="width:10px;height:10px;border-radius:50%;background:{col};flex-shrink:0;"></span>'
-            f'<span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;color:#60a5fa;">{e["from"]}</span>'
+            f'<span style="{mono};font-size:11px;color:#60a5fa;">{e["from"]}</span>'
             f'<span style="color:#4a5a72;">→</span>'
-            f'<span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;color:#60a5fa;">{e["to"]}</span>'
+            f'<span style="{mono};font-size:11px;color:#60a5fa;">{e["to"]}</span>'
             f'<span style="font-size:10px;color:#94a3b8;flex:1;">{e.get("label","")}</span>'
-            f'{"<span style=\"font-size:9px;color:#c8943a;border:1px solid #5a3a10;border-radius:4px;padding:1px 6px;\">runtime</span>" if e.get("isRuntimeBranch") else ""}'
+            f'{runtime_span}'
             f'</div>',
             unsafe_allow_html=True
         )

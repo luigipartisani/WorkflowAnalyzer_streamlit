@@ -204,6 +204,12 @@ class WorkflowParser:
         all_nodes = active_nodes + commented_nodes
         all_edges = active_edges
 
+        # Implicit summary → outcome edge (framework convention, never written explicitly)
+        active_ids = {n.id for n in active_nodes}
+        if "summary" in active_ids and "outcome" in active_ids:
+            if not any(e.from_id == "summary" and e.to_id == "outcome" for e in all_edges):
+                all_edges.append(Edge(from_id="summary", to_id="outcome"))
+
         # Mark orphans
         reachable = {e.to_id for e in all_edges} | {e.from_id for e in all_edges}
         for n in active_nodes:

@@ -175,7 +175,7 @@ body{{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;heigh
 .view{{flex:1;overflow:hidden;display:none;}}
 .view.active{{display:flex;flex-direction:column;}}
 #diagramView{{background:var(--bg);}}
-.diagram-canvas{{flex:1;overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:40px;}}
+.diagram-canvas{{flex:1;overflow:auto;display:flex;align-items:flex-start;padding:40px;}}
 #jsonView{{background:var(--surface);}}
 .json-toolbar{{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--border);flex-shrink:0;}}
 .json-toolbar span{{font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--text3);}}
@@ -309,7 +309,9 @@ if (positioned.length) {{
   const svg=d3.select('#diagramCanvas').append('svg')
     .attr('width',W).attr('height',H)
     .attr('viewBox',`${{minX}} ${{minY}} ${{W}} ${{H}}`)
-    .style('overflow','visible');
+    .style('overflow','visible')
+    .style('margin','0 auto')
+    .style('display','block');
 
   const defs=svg.append('defs');
   const cols=[...new Set(edges.map(e=>e.color).filter(Boolean))];
